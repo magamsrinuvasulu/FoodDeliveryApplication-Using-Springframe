@@ -1,0 +1,42 @@
+package spring;
+import java.time.LocalDate;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
+@ComponentScan("spring")
+@Configuration
+public class SpringDemo {
+    public static void main(String[] args) {
+        ApplicationContext container =
+                new AnnotationConfigApplicationContext(SpringDemo.class);
+        Address address = container.getBean(Address.class);
+        address.setLocation("Tirupati");
+        address.setPinCode(517501);
+        System.out.println(address);
+        UserName user = container.getBean(UserName.class);
+        user.setUserId(101);
+        user.setName("Srinu");
+        user.setEmail("srinu@gmail.com");
+        user.setPhoneNo(9876543210L);
+        user.setPassword(1234);
+        user.getOrder().setOrder_id(101);
+        user.getOrder().setOrder_date(LocalDate.parse("2026-10-22"));
+        user.getOrder().setStatus("On The Way");
+        user.getOrder().setTotal_amount(728);
+        user.getOrder().getOrderItem().setOredr_item_id("OI101");
+        user.getOrder().getOrderItem().setQuantity(2);
+        user.getOrder().getOrderItem().setPrice(364);
+        user.getOrder().getOrderItem().getFood().setFood_id("f003");
+        user.getOrder().getOrderItem().getFood().setName("Chicken");
+        user.getOrder().getOrderItem().getFood().setDescription("Delicious");
+        user.getOrder().getOrderItem().getFood().setPrice(1245);
+        user.getOrder().getOrderItem().getFood().setCategory("Non-Vegetarian");
+        System.out.println(user);
+        System.out.println(user.getOrder());
+        System.out.println(user.getOrder().getOrderItem());
+        System.out.println(user.getOrder().getOrderItem().getFood());
+        ((AnnotationConfigApplicationContext) container).close();
+    }
+}
+
