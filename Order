@@ -1,0 +1,48 @@
+package spring;
+import java.time.*;
+import org.springframework.stereotype.Component;
+import org.springframework.beans.factory.annotation.Autowired;
+@Component
+public class Order {
+	private int order_id;
+	private LocalDate order_date;
+	private String status;
+	@Autowired
+	private OrderItem orderItem;
+	public OrderItem getOrderItem() {
+		return orderItem;
+	}
+	public void setOrderItem(OrderItem orderItem) {
+		this.orderItem = orderItem;
+	}
+	private long total_amount;
+	public int getOrder_id() {
+		return order_id;
+	}
+	public void setOrder_id(int order_id) {
+		this.order_id = order_id;
+	}
+	public LocalDate getOrder_date() {
+		return order_date;
+	}
+	public void setOrder_date(LocalDate order_date) {
+		this.order_date = order_date;
+	}
+	public String getStatus() {
+		return status;
+	}
+	public void setStatus(String status) {
+		this.status = status;
+	}
+	public long getTotal_amount() {
+		return total_amount;
+	}
+	public void setTotal_amount(long total_amount) {
+		this.total_amount = total_amount;
+	}
+	@Override
+	public String toString() {
+		return "Order [order_id=" + order_id + ", order_date=" + order_date + ", status=" + status + ", orderItem="
+				+ orderItem + ", total_amount=" + total_amount + "]";
+	}
+}
