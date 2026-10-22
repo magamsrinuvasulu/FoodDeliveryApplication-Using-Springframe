@@ -1,0 +1,39 @@
+package spring;
+import org.springframework.stereotype.Component;
+import org.springframework.beans.factory.annotation.Autowired;
+@Component
+public class OrderItem {
+	private String oredr_item_id;
+	private int quantity;
+	private int price;
+	@Autowired
+	private Food food;
+	public Food getFood() {
+		return food;
+	}
+	public void setFood(Food food) {
+		this.food = food;
+	}
+	public String getOredr_item_id() {
+		return oredr_item_id;
+	}
+	public void setOredr_item_id(String oredr_item_id) {
+		this.oredr_item_id = oredr_item_id;
+	}
+	public int getQuantity() {
+		return quantity;
+	}
+	public void setQuantity(int quantity) {
+		this.quantity = quantity;
+	}
+	public int getPrice() {
+		return price;
+	}
+	public void setPrice(int price) {
+		this.price = price;
+	}
+	@Override
+	public String toString() {
+		return "OrderItem [oredr_item_id=" + oredr_item_id + ", quantity=" + quantity + ", price=" + price + "]";
+	}
+}
