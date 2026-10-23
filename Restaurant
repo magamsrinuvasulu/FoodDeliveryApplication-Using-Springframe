@@ -1,0 +1,54 @@
+package spring;
+import org.springframework.stereotype.Component;
+import org.springframework.beans.factory.annotation.Autowired;
+@Component
+public class Restaurant {
+	private String name;
+	private String restaurant_id;
+	private long phoneNo;
+	private int rating;
+	private String address;
+	@Autowired
+	private Food food;
+	public Food getFood() {
+		return food;
+	}
+	public void setFood(Food food) {
+		this.food = food;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public String getRestaurant_id() {
+		return restaurant_id;
+	}
+	public void setRestaurant_id(String restaurant_id) {
+		this.restaurant_id = restaurant_id;
+	}
+	public long getPhoneNo() {
+		return phoneNo;
+	}
+	public void setPhoneNo(long phoneNo) {
+		this.phoneNo = phoneNo;
+	}
+	public int getRating() {
+		return rating;
+	}
+	public void setRating(int rating) {
+		this.rating = rating;
+	}
+	public String getAddress() {
+		return address;
+	}
+	public void setAddress(String address) {
+		this.address = address;
+		}
+	@Override
+	public String toString() {
+		return "Restaurant [name=" + name + ", restaurant_id=" + restaurant_id + ", phoneNo=" + phoneNo + ", rating="
+				+ rating + ", address=" + address + "]";
+	}
+}
