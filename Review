@@ -1,0 +1,44 @@
+package spring;
+import org.springframework.stereotype.Component;
+import org.springframework.beans.factory.annotation.Autowired;
+@Component
+public class Review {
+	private int rating;
+	private String feedback;
+	@Autowired
+	private Food food;
+	public int getRating() {
+		return rating;
+	}
+	public void setRating(int rating) {
+		if(rating==5) {
+			this.rating=rating;
+			System.out.println("Delicious");
+		}else if(rating==4) {
+			this.rating=rating;
+			System.out.println("Good");
+		}else if(rating==3) {
+			this.rating=rating;
+			System.out.println("Average");
+		}else {
+			this.rating=rating;
+			System.out.println("Worst food");
+		}
+	}
+	public String getFeedback() {
+		return feedback;
+	}
+	public void setFeedback(String feedback) {
+		this.feedback = feedback;
+	}
+	public Food getFood() {
+		return food;
+	}
+	public void setFood(Food food) {
+		this.food = food;
+	}
+	@Override
+	public String toString() {
+		return "Review [rating=" + rating + ", feedback=" + feedback + ", food=" + food + "]";
+	}
+}
