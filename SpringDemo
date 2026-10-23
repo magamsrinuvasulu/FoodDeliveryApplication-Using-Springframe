@@ -1,41 +1,130 @@
-package spring;
+1package spring;
 import java.time.LocalDate;
-import org.springframework.context.ApplicationContext;
+import java.time.LocalDateTime;
+import java.util.Scanner;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.ApplicationContext;
 @ComponentScan("spring")
 @Configuration
 public class SpringDemo {
     public static void main(String[] args) {
         ApplicationContext container =
                 new AnnotationConfigApplicationContext(SpringDemo.class);
+
+        Scanner sc = new Scanner(System.in);
+        // Address
         Address address = container.getBean(Address.class);
         address.setLocation("Tirupati");
         address.setPinCode(517501);
-        System.out.println(address);
+        // User
         UserName user = container.getBean(UserName.class);
         user.setUserId(101);
         user.setName("Srinu");
         user.setEmail("srinu@gmail.com");
         user.setPhoneNo(9876543210L);
         user.setPassword(1234);
-        user.getOrder().setOrder_id(101);
-        user.getOrder().setOrder_date(LocalDate.parse("2026-10-22"));
-        user.getOrder().setStatus("On The Way");
-        user.getOrder().setTotal_amount(728);
+        // Food
+        Food food = user.getOrder().getOrderItem().getFood();
+        food.setFood_id("F003");
+        food.setName("Chicken");
+        food.setDescription("Delicious");
+        food.setPrice(364);
+        food.setCategory("Non-Vegetarian");
+        // Order Item
         user.getOrder().getOrderItem().setOredr_item_id("OI101");
         user.getOrder().getOrderItem().setQuantity(2);
         user.getOrder().getOrderItem().setPrice(364);
-        user.getOrder().getOrderItem().getFood().setFood_id("f003");
-        user.getOrder().getOrderItem().getFood().setName("Chicken");
-        user.getOrder().getOrderItem().getFood().setDescription("Delicious");
-        user.getOrder().getOrderItem().getFood().setPrice(1245);
-        user.getOrder().getOrderItem().getFood().setCategory("Non-Vegetarian");
-        System.out.println(user);
-        System.out.println(user.getOrder());
-        System.out.println(user.getOrder().getOrderItem());
-        System.out.println(user.getOrder().getOrderItem().getFood());
+        // Order
+        user.getOrder().setOrder_id(101);
+        user.getOrder().setOrder_date(LocalDate.now());
+        user.getOrder().setStatus("Confirmed");
+        user.getOrder().setTotal_amount(
+                (long) user.getOrder().getOrderItem().getQuantity()
+                * user.getOrder().getOrderItem().getPrice());
+        // Restaurant
+        Restaurant restaurant = container.getBean(Restaurant.class);
+        restaurant.setName("Sri Food Court");
+        restaurant.setRestaurant_id("R101");
+        restaurant.setPhoneNo(9876543210L);
+        restaurant.setRating(5);
+        restaurant.setAddress("Tirupati");
+        // Payment
+        Payment payment = container.getBean(Payment.class);
+        payment.setPayment_id("P101");
+        payment.setPayment_date_time(LocalDateTime.now());
+        payment.setAmount(728);
+        payment.checkPaymentStatus();
+        // Delivery
+        Delivery delivery = container.getBean(Delivery.class);
+        delivery.setDelivery_id("D101");
+        delivery.setPerson_Name("Ramesh");
+        delivery.setStatus("On The Way");
+        delivery.setDelivery_at(address);
+        delivery.setOrder(user.getOrder());
+        // Review
+        Review review = container.getBean(Review.class);
+        review.setRating(5);
+        review.setFeedback("Excellent food");
+        int choice;
+        do {
+            System.out.println("\n===== FOOD ORDERING SYSTEM =====");
+            System.out.println("1. User Details");
+            System.out.println("2. Food Details");
+            System.out.println("3. Order Details");
+            System.out.println("4. Restaurant Details");
+            System.out.println("5. Payment Details");
+            System.out.println("6. Delivery Details");
+            System.out.println("7. Review Details");
+            System.out.println("8. Address Details");
+            System.out.println("9. Exit");
+            System.out.print("Enter your choice: ");
+            choice = sc.nextInt();
+            switch (choice) {
+                case 1:
+                    System.out.println("\n----- USER DETAILS -----");
+                    System.out.println(user);
+                    break;
+                case 2:
+                    System.out.println("\n----- FOOD DETAILS -----");
+                    System.out.println(food);
+                    break;
+                case 3:
+                    System.out.println("\n----- ORDER DETAILS -----");
+                    System.out.println(user.getOrder());
+
+                    System.out.println("\n----- ORDER ITEM DETAILS -----");
+                    System.out.println(user.getOrder().getOrderItem());
+                    break;
+                case 4:
+                    System.out.println("\n----- RESTAURANT DETAILS -----");
+                    System.out.println(restaurant);
+                    break;
+                case 5:
+                    System.out.println("\n----- PAYMENT DETAILS -----");
+                    System.out.println(payment);
+                    break;
+                case 6:
+                    System.out.println("\n----- DELIVERY DETAILS -----");
+                    System.out.println(delivery);
+                    break;
+                case 7:
+                    System.out.println("\n----- REVIEW DETAILS -----");
+                    System.out.println(review);
+                    break;
+                case 8:
+                    System.out.println("\n----- ADDRESS DETAILS -----");
+                    System.out.println(address);
+                    break;
+                case 9:
+                    System.out.println("Thank you for using the MSR Food Ordering System!");
+                    break;
+                default:
+                    System.out.println("Invalid choice! Please try again.");
+            }
+        } while (choice != 9);
+        sc.close();
         ((AnnotationConfigApplicationContext) container).close();
     }
 }
